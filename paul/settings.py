@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessio                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ns.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -53,10 +53,15 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'paul.urls'
 
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates').replace('\\', '/'),
+            os.path.join(PROJECT_ROOT, 'templates').replace('\\', '/'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,11 +137,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+
 STATIC_ROOT = './static'
 
 STATIC_URL = 'http://paulino.neoplace.com.br/static/'
 
-PROJECT_DIR='./paul/principal/'
+#todo: test to change the main directory and see if works
+#PROJECT_DIR='./paul/principal/'
+PROJECT_DIR='./paul/'
+
 
 STATICFILES_DIRS = (
 
@@ -145,4 +155,13 @@ STATICFILES_DIRS = (
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, "templates"),
+    os.path.join(PROJECT_ROOT,'templates').replace('\\', '/'),
+    os.path.join(PROJECT_ROOT, '/paul/templates/'),
+
+)
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
 )
